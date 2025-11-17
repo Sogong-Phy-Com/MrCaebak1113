@@ -9,3 +9,4 @@ public interface DinnerTypeRepository extends JpaRepository<DinnerType, Long> {
 }
 
 
+

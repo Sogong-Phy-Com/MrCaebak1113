@@ -70,3 +70,4 @@ VALUES ('newemployee@mrdabak.com', '{암호화된_비밀번호}', '새 직원', 
 - JWT 토큰은 7일간 유효합니다
 
 
+

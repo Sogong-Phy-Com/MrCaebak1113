@@ -41,7 +41,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/employee/**").hasAnyRole("ADMIN", "EMPLOYEE")
                 .requestMatchers("/api/orders/**").authenticated()  // 인증 필요
-                .anyRequest().authenticated()
+                .requestMatchers("/static/**", "/*.js", "/*.css", "/*.json", "/*.ico", "/*.png", "/*.jpg", "/*.svg", "/*.woff", "/*.woff2", "/*.ttf", "/*.eot").permitAll()  // 정적 리소스 허용
+                .requestMatchers("/", "/login", "/register", "/order", "/orders", "/profile", "/delivery/**", "/admin", "/employee").permitAll()  // 프론트엔드 라우트 허용
+                .anyRequest().permitAll()  // 나머지는 모두 허용 (프론트엔드 라우팅)
             )
             .exceptionHandling(exceptions -> exceptions
                 .authenticationEntryPoint((request, response, authException) -> {
@@ -86,7 +88,30 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        // Allow localhost and local network access
+        // In development, allow all origins from local network (192.168.x.x, 10.x.x.x, 172.16-31.x.x)
+        configuration.setAllowedOriginPatterns(Arrays.asList(
+            "http://localhost:*",
+            "http://127.0.0.1:*",
+            "http://192.168.*.*:*",
+            "http://10.*.*.*:*",
+            "http://172.16.*.*:*",
+            "http://172.17.*.*:*",
+            "http://172.18.*.*:*",
+            "http://172.19.*.*:*",
+            "http://172.20.*.*:*",
+            "http://172.21.*.*:*",
+            "http://172.22.*.*:*",
+            "http://172.23.*.*:*",
+            "http://172.24.*.*:*",
+            "http://172.25.*.*:*",
+            "http://172.26.*.*:*",
+            "http://172.27.*.*:*",
+            "http://172.28.*.*:*",
+            "http://172.29.*.*:*",
+            "http://172.30.*.*:*",
+            "http://172.31.*.*:*"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);

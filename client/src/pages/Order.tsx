@@ -378,12 +378,12 @@ const Order: React.FC = () => {
                     const orderItem = orderItems.find(oi => oi.menu_item_id === item.id);
                     const quantity = orderItem?.quantity || 0;
                     return (
-                      <div key={item.menu_item_id} className="order-item">
+                      <div key={item.id} className="order-item">
                         <span>{item.name} - {item.price.toLocaleString()}원</span>
                         <div className="quantity-controls">
                           <button
                             type="button"
-                            onClick={() => updateItemQuantity(item.menu_item_id, -1)}
+                            onClick={() => updateItemQuantity(item.id, -1)}
                             className="btn btn-secondary"
                           >
                             -
@@ -391,7 +391,7 @@ const Order: React.FC = () => {
                           <span className="quantity">{quantity}</span>
                           <button
                             type="button"
-                            onClick={() => updateItemQuantity(item.menu_item_id, 1)}
+                            onClick={() => updateItemQuantity(item.id, 1)}
                             className="btn btn-secondary"
                           >
                             +

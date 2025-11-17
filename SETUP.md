@@ -100,3 +100,4 @@ curl -X POST http://localhost:5000/api/auth/register \
 - 마이크 권한 확인
 
 
+

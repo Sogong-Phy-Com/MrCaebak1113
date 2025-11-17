@@ -31,7 +31,6 @@ const Profile: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const [ordersLoading, setOrdersLoading] = useState(false);
   const [ordersError, setOrdersError] = useState('');
-  const [loading, setLoading] = useState(false);
   
   // 비밀번호 변경 모달
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -204,13 +203,15 @@ const Profile: React.FC = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`${API_URL}/auth/update-address`, {
+      await axios.put(`${API_URL}/auth/update-address`, {
         address: newAddress
       }, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
-      updateUser({ ...user, address: newAddress });
+      if (user) {
+        updateUser({ ...user, address: newAddress });
+      }
       alert('주소가 변경되었습니다.');
       setShowAddressModal(false);
     } catch (err: any) {

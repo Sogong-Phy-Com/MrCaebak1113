@@ -21,18 +21,9 @@ interface Order {
 
 const DeliveryStatus: React.FC = () => {
   const { orderId } = useParams<{ orderId: string }>();
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!orderId) {
-      navigate('/orders');
-      return;
-    }
-    fetchOrder();
-  }, [orderId, navigate]);
 
   const fetchOrder = async () => {
     try {
@@ -61,6 +52,15 @@ const DeliveryStatus: React.FC = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!orderId) {
+      navigate('/orders');
+      return;
+    }
+    fetchOrder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderId, navigate]);
 
   const getStatusSteps = () => {
     const steps = [
