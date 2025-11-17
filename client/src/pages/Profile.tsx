@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import BottomNav from '../components/BottomNav';
 import './Profile.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || (window.location.protocol === 'https:' ? '/api' : 'http://localhost:5000/api');
 
 interface OrderStats {
   totalOrders: number;
