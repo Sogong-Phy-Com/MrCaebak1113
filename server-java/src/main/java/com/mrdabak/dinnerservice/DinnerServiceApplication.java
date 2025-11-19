@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories(
-    basePackages = {
-        "com.mrdabak.dinnerservice.repository",
-        "com.mrdabak.dinnerservice.repository.order"
-    }
+    basePackages = "com.mrdabak.dinnerservice.repository",
+    excludeFilters = @org.springframework.context.annotation.ComponentScan.Filter(
+        type = org.springframework.context.annotation.FilterType.REGEX,
+        pattern = "com\\.mrdabak\\.dinnerservice\\.repository\\.order\\..*"
+    )
 )
 @EntityScan(basePackages = "com.mrdabak.dinnerservice.model")
 public class DinnerServiceApplication {
